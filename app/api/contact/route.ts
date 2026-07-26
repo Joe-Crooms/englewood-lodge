@@ -49,7 +49,8 @@ export async function POST(request: NextRequest) {
   try {
     await resend.emails.send({
       from: FROM_ADDRESS,
-      to: [LODGE_EMAIL, ADMIN_EMAIL],
+      to: [LODGE_EMAIL],
+      bcc: [ADMIN_EMAIL],
       replyTo: email ?? undefined,
       subject: emailSubject,
       html,
