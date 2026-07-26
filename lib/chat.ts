@@ -1,3 +1,5 @@
+import { EVENTS, formatEventDate } from './events'
+
 export const CHAT_MAX_MESSAGES = 20
 export const CHAT_MAX_MESSAGES_HARD = 25
 export const CHAT_MAX_MESSAGE_LENGTH = 2000
@@ -53,7 +55,37 @@ export function isValidHistory(messages: unknown): messages is ChatMessage[] {
   )
 }
 
-export function buildSystemPrompt(): string {
+function nextStatedMeetings(today: Date, count = 3): string[] {
+  const results: string[] = []
+  const d = new Date(today)
+  d.setHours(0, 0, 0, 0)
+  d.setDate(d.getDate() + 1) // start from tomorrow
+
+  while (results.length < count) {
+    if (d.getDay() === 2) { // Tuesday
+      const day = d.getDate()
+      const week = Math.ceil(day / 7)
+      if (week === 1 || week === 3) {
+        results.push(d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }))
+      }
+    }
+    d.setDate(d.getDate() + 1)
+  }
+  return results
+}
+
+export function buildSystemPrompt(today: Date = new Date()): string {
+  const upcoming = EVENTS
+    .filter((e) => new Date(e.date + 'T00:00:00') > today)
+    .slice(0, 6)
+
+  const meetingLines = upcoming.length > 0
+    ? upcoming.map((e) => `- ${formatEventDate(e.date)} — ${e.title}, ${e.time}${e.note ? ', ' + e.note : ''}`)
+        .join('\n')
+    : nextStatedMeetings(today)
+        .map((d) => `- ${d} — Stated Meeting, 6:30 PM Dinner, 7:30 PM Meeting`)
+        .join('\n')
+
   return `You are an assistant for Englewood Masonic Lodge No. 360, Free & Accepted Masons, located at 265 Pine Street, Englewood, Florida.
 
 LODGE INFORMATION:
@@ -74,9 +106,8 @@ CURRENT 2026 OFFICERS:
 - Marshal: Robert Gaitens
 - Tyler: Denis Doome
 
-UPCOMING EVENTS:
-- July 21, 2026 — Stated Meeting, 7:30 PM, 265 Pine St
-- July 28, 2026 — Practice / Officer Meeting, 6:30 PM, 265 Pine St
+UPCOMING EVENTS (only mention these — do not invent dates):
+${meetingLines}
 
 SCHOLARSHIP FOUNDATION:
 The Englewood Masonic Lodge No. 360 Scholarship Foundation provides scholarships to graduating seniors at Lemon Bay High School, North Port High School, and Wellan Park High School who plan to attend trade schools, vocational/technical schools, nursing programs, or fire and police academies. 2026 recipients each received a $2,500 scholarship.

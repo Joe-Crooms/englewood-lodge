@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
   const anthropicStream = client.messages.stream({
     model: 'claude-haiku-4-5-20251001',
     max_tokens: 500,
-    system: buildSystemPrompt(),
+    system: buildSystemPrompt(new Date()),
     messages: parsed.messages,
   })
 
