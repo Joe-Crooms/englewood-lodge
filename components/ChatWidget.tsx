@@ -227,22 +227,40 @@ export default function ChatWidget() {
         aria-label={open ? 'Close chat' : 'Chat with us'}
         style={{
           position: 'fixed', bottom: 20, right: 20, zIndex: 1000,
-          width: 52, height: 52, borderRadius: '50%',
-          background: '#c8a84b', border: 'none', cursor: 'pointer',
+          width: 52, height: 52, borderRadius: 6,
+          background: '#1a2744', border: '2px solid #c8a84b', cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 4px 24px rgba(200,168,75,0.45)',
+          boxShadow: '0 4px 24px rgba(26,39,68,0.5)',
           fontSize: 22, transition: 'transform 0.2s, box-shadow 0.2s',
         }}
         onMouseOver={(e) => {
           e.currentTarget.style.transform = 'scale(1.08)'
-          e.currentTarget.style.boxShadow = '0 6px 28px rgba(200,168,75,0.6)'
+          e.currentTarget.style.boxShadow = '0 6px 28px rgba(200,168,75,0.4)'
         }}
         onMouseOut={(e) => {
           e.currentTarget.style.transform = 'scale(1)'
-          e.currentTarget.style.boxShadow = '0 4px 24px rgba(200,168,75,0.45)'
+          e.currentTarget.style.boxShadow = '0 4px 24px rgba(26,39,68,0.5)'
         }}
       >
-        {open ? '✕' : '🏛'}
+        {open ? (
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+            <line x1="2" y1="16" x2="9" y2="2" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
+            <line x1="16" y1="16" x2="9" y2="2" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
+            <line x1="4" y1="11" x2="14" y2="11" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
+        ) : (
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+            {/* Compass legs */}
+            <line x1="15" y1="5" x2="6" y2="24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
+            <line x1="15" y1="5" x2="24" y2="24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
+            {/* Compass spread bar */}
+            <line x1="8.5" y1="18" x2="21.5" y2="18" stroke="#c8a84b" strokeWidth="1.4" strokeLinecap="round" />
+            {/* Square — inverted V open at top */}
+            <polyline points="9,24 9,13 21,13 21,24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            {/* G */}
+            <text x="15" y="21" textAnchor="middle" fontSize="5.5" fontFamily="Georgia,serif" fontWeight="bold" fill="#c8a84b">G</text>
+          </svg>
+        )}
       </button>
 
       {open && (
@@ -264,9 +282,15 @@ export default function ChatWidget() {
             <div style={{
               width: 34, height: 34, borderRadius: '50%',
               background: 'rgba(200,168,75,0.12)', border: '1px solid rgba(200,168,75,0.3)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              🏛
+              <svg width="20" height="20" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+                <line x1="15" y1="5" x2="6" y2="24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
+                <line x1="15" y1="5" x2="24" y2="24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
+                <line x1="8.5" y1="18" x2="21.5" y2="18" stroke="#c8a84b" strokeWidth="1.4" strokeLinecap="round" />
+                <polyline points="9,24 9,13 21,13 21,24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                <text x="15" y="21" textAnchor="middle" fontSize="5.5" fontFamily="Georgia,serif" fontWeight="bold" fill="#c8a84b">G</text>
+              </svg>
             </div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', lineHeight: 1.2, fontFamily: 'Georgia, serif' }}>Lodge Assistant</div>
