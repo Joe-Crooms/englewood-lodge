@@ -245,7 +245,7 @@ export default function ChatWidget() {
         {open ? (
           <span style={{ color: '#c8a84b', fontSize: 20, fontWeight: 700, lineHeight: 1 }}>✕</span>
         ) : (
-          <img src="/emblem.png" alt="Square and compass" width={34} height={34} style={{ display: 'block', mixBlendMode: 'multiply' }} />
+          <img src="/emblem.png" alt="Square and compass" width={34} height={34} style={{ display: 'block' }} />
         )}
       </button>
 
@@ -270,7 +270,7 @@ export default function ChatWidget() {
               background: 'rgba(200,168,75,0.12)', border: '1px solid rgba(200,168,75,0.3)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <img src="/emblem.png" alt="" width={22} height={22} style={{ display: 'block', mixBlendMode: 'multiply' }} />
+              <img src="/emblem.png" alt="" width={22} height={22} style={{ display: 'block' }} />
             </div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', lineHeight: 1.2, fontFamily: 'Georgia, serif' }}>Lodge Assistant</div>
