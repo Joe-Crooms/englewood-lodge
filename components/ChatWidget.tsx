@@ -228,18 +228,18 @@ export default function ChatWidget() {
         style={{
           position: 'fixed', bottom: 20, right: 20, zIndex: 1000,
           width: 52, height: 52, borderRadius: 6,
-          background: '#1a2744', border: '2px solid #c8a84b', cursor: 'pointer',
+          background: 'transparent', border: 'none', cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 4px 24px rgba(26,39,68,0.5)',
+          boxShadow: 'none',
           fontSize: 22, transition: 'transform 0.2s, box-shadow 0.2s',
         }}
         onMouseOver={(e) => {
           e.currentTarget.style.transform = 'scale(1.08)'
-          e.currentTarget.style.boxShadow = '0 6px 28px rgba(200,168,75,0.4)'
+          e.currentTarget.style.boxShadow = 'none'
         }}
         onMouseOut={(e) => {
           e.currentTarget.style.transform = 'scale(1)'
-          e.currentTarget.style.boxShadow = '0 4px 24px rgba(26,39,68,0.5)'
+          e.currentTarget.style.boxShadow = 'none'
         }}
       >
         {open ? (
