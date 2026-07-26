@@ -141,6 +141,22 @@ export default function ChatWidget() {
     return () => { if (inactivityTimer.current) clearTimeout(inactivityTimer.current) }
   }, [])
 
+  useEffect(() => {
+    if (sessionStorage.getItem('chat-greeted')) return
+    const timer = setTimeout(() => {
+      setOpen((wasOpen) => {
+        if (wasOpen) return wasOpen
+        setMessages([{
+          role: 'assistant',
+          content: 'Welcome to Englewood Lodge No. 360! Can I help answer any questions about the lodge, our upcoming events, or Freemasonry?',
+        }])
+        sessionStorage.setItem('chat-greeted', '1')
+        return true
+      })
+    }, 10000)
+    return () => clearTimeout(timer)
+  }, [])
+
   async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault()
     const text = input.trim()
