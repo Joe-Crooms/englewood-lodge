@@ -243,23 +243,9 @@ export default function ChatWidget() {
         }}
       >
         {open ? (
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <line x1="2" y1="16" x2="9" y2="2" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
-            <line x1="16" y1="16" x2="9" y2="2" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
-            <line x1="4" y1="11" x2="14" y2="11" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
-          </svg>
+          <span style={{ color: '#c8a84b', fontSize: 20, fontWeight: 700, lineHeight: 1 }}>✕</span>
         ) : (
-          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
-            {/* Compass legs */}
-            <line x1="15" y1="5" x2="6" y2="24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
-            <line x1="15" y1="5" x2="24" y2="24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
-            {/* Compass spread bar */}
-            <line x1="8.5" y1="18" x2="21.5" y2="18" stroke="#c8a84b" strokeWidth="1.4" strokeLinecap="round" />
-            {/* Square — inverted V open at top */}
-            <polyline points="9,24 9,13 21,13 21,24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            {/* G */}
-            <text x="15" y="21" textAnchor="middle" fontSize="5.5" fontFamily="Georgia,serif" fontWeight="bold" fill="#c8a84b">G</text>
-          </svg>
+          <img src="/emblem.png" alt="Square and compass" width={34} height={34} style={{ display: 'block' }} />
         )}
       </button>
 
@@ -284,13 +270,7 @@ export default function ChatWidget() {
               background: 'rgba(200,168,75,0.12)', border: '1px solid rgba(200,168,75,0.3)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <svg width="20" height="20" viewBox="0 0 30 30" fill="none" aria-hidden="true">
-                <line x1="15" y1="5" x2="6" y2="24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
-                <line x1="15" y1="5" x2="24" y2="24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" />
-                <line x1="8.5" y1="18" x2="21.5" y2="18" stroke="#c8a84b" strokeWidth="1.4" strokeLinecap="round" />
-                <polyline points="9,24 9,13 21,13 21,24" stroke="#c8a84b" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                <text x="15" y="21" textAnchor="middle" fontSize="5.5" fontFamily="Georgia,serif" fontWeight="bold" fill="#c8a84b">G</text>
-              </svg>
+              <img src="/emblem.png" alt="" width={22} height={22} style={{ display: 'block' }} />
             </div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', lineHeight: 1.2, fontFamily: 'Georgia, serif' }}>Lodge Assistant</div>
