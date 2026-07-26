@@ -228,24 +228,24 @@ export default function ChatWidget() {
         style={{
           position: 'fixed', bottom: 20, right: 20, zIndex: 1000,
           width: 52, height: 52, borderRadius: 6,
-          background: 'transparent', border: 'none', cursor: 'pointer',
+          background: '#1a2744', border: '2px solid #c8a84b', cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: 'none',
+          boxShadow: '0 4px 24px rgba(26,39,68,0.5)',
           fontSize: 22, transition: 'transform 0.2s, box-shadow 0.2s',
         }}
         onMouseOver={(e) => {
           e.currentTarget.style.transform = 'scale(1.08)'
-          e.currentTarget.style.boxShadow = 'none'
+          e.currentTarget.style.boxShadow = '0 6px 28px rgba(200,168,75,0.4)'
         }}
         onMouseOut={(e) => {
           e.currentTarget.style.transform = 'scale(1)'
-          e.currentTarget.style.boxShadow = 'none'
+          e.currentTarget.style.boxShadow = '0 4px 24px rgba(26,39,68,0.5)'
         }}
       >
         {open ? (
           <span style={{ color: '#c8a84b', fontSize: 20, fontWeight: 700, lineHeight: 1 }}>✕</span>
         ) : (
-          <img src="/emblem.png" alt="Square and compass" width={34} height={34} style={{ display: 'block' }} />
+          <img src="/emblem.png" alt="Square and compass" width={34} height={34} style={{ display: 'block', mixBlendMode: 'multiply' }} />
         )}
       </button>
 
@@ -270,7 +270,7 @@ export default function ChatWidget() {
               background: 'rgba(200,168,75,0.12)', border: '1px solid rgba(200,168,75,0.3)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
-              <img src="/emblem.png" alt="" width={22} height={22} style={{ display: 'block' }} />
+              <img src="/emblem.png" alt="" width={22} height={22} style={{ display: 'block', mixBlendMode: 'multiply' }} />
             </div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', lineHeight: 1.2, fontFamily: 'Georgia, serif' }}>Lodge Assistant</div>
