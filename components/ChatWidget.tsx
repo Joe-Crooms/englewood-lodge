@@ -57,6 +57,7 @@ export default function ChatWidget() {
   const [pending, setPending] = useState(false)
   const [lead, setLead] = useState<LeadData | null>(null)
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const transcriptSent = useRef(false)
@@ -67,6 +68,13 @@ export default function ChatWidget() {
 
   useEffect(() => { messagesRef.current = messages }, [messages])
   useEffect(() => { leadRef.current = lead }, [lead])
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 480)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
 
   const sendTranscript = useCallback((useBeacon = false) => {
     const msgs = messagesRef.current
@@ -242,7 +250,7 @@ export default function ChatWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? 'Close chat' : 'Chat with us'}
         style={{
-          position: 'fixed', bottom: 20, right: 20, zIndex: 1000,
+          position: 'fixed', bottom: isMobile ? 16 : 20, right: isMobile ? 12 : 20, zIndex: 1000,
           width: 52, height: 52, borderRadius: 6,
           background: '#1a2744', border: '2px solid #c8a84b', cursor: 'pointer',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -267,8 +275,10 @@ export default function ChatWidget() {
 
       {open && (
         <div style={{
-          position: 'fixed', bottom: 84, right: 20, zIndex: 999,
-          width: 'min(360px, calc(100vw - 32px))', height: 480,
+          position: 'fixed', zIndex: 999,
+          ...(isMobile
+            ? { bottom: 80, left: 8, right: 8, height: 'calc(100dvh - 100px)' }
+            : { bottom: 84, right: 20, width: 360, height: 480 }),
           display: 'flex', flexDirection: 'column',
           background: '#111b30',
           borderRadius: 16, border: '1px solid rgba(200,168,75,0.25)',
