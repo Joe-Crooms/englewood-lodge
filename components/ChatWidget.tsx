@@ -173,6 +173,9 @@ export default function ChatWidget() {
     const userMsg: ChatMessage = { role: 'user', content: text }
     const nextMessages = [...messages, userMsg]
     setMessages(nextMessages)
+    // Drop any leading assistant-only messages (e.g. the auto-greeting) — the
+    // API requires history to start with a user message.
+    const apiMessages = nextMessages.slice(nextMessages.findIndex((m) => m.role === 'user'))
     setInput('')
     setPending(true)
     resetInactivityTimer()
@@ -186,7 +189,7 @@ export default function ChatWidget() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: nextMessages }),
+        body: JSON.stringify({ messages: apiMessages }),
         signal: controller.signal,
       })
 
