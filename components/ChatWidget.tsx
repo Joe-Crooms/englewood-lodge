@@ -62,6 +62,7 @@ export default function ChatWidget() {
   const scrollRef = useRef<HTMLDivElement>(null)
   const transcriptSent = useRef(false)
   const formSubmittedRef = useRef(false)
+  const formSubmitSucceededRef = useRef(false)
   const inactivityTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const messagesRef = useRef<ChatMessage[]>([])
   const leadRef = useRef<LeadData | null>(null)
@@ -84,6 +85,7 @@ export default function ChatWidget() {
     const payload = JSON.stringify({
       messages: msgs,
       lead: leadRef.current,
+      formSubmitted: formSubmitSucceededRef.current,
       page: typeof window !== 'undefined' ? window.location.pathname : undefined,
     })
 
@@ -129,6 +131,7 @@ export default function ChatWidget() {
       })
 
       if (res.ok) {
+        formSubmitSucceededRef.current = true
         setFormSubmitted(true)
       } else {
         setMessages((prev) => [

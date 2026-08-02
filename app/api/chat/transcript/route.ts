@@ -7,14 +7,14 @@ function escHtml(str: string): string {
 }
 
 export async function POST(request: NextRequest) {
-  let body: { messages: ChatMessage[]; lead?: LeadData; page?: string }
+  let body: { messages: ChatMessage[]; lead?: LeadData; page?: string; formSubmitted?: boolean }
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ ok: false }, { status: 400 })
   }
 
-  const { messages, lead, page } = body
+  const { messages, lead, page, formSubmitted } = body
   if (!Array.isArray(messages) || messages.length < 2) {
     return NextResponse.json({ ok: true })
   }
@@ -56,13 +56,11 @@ export async function POST(request: NextRequest) {
     </div>`
 
   try {
-    await resend.emails.send({
-      from: FROM_ADDRESS,
-      to: [LODGE_EMAIL],
-      bcc: [ADMIN_EMAIL],
-      subject,
-      html,
-    })
+    await resend.emails.send(
+      formSubmitted
+        ? { from: FROM_ADDRESS, to: [LODGE_EMAIL], bcc: [ADMIN_EMAIL], subject, html }
+        : { from: FROM_ADDRESS, to: [ADMIN_EMAIL], subject, html }
+    )
   } catch {
     // fire-and-forget
   }
