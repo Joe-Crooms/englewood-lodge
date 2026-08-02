@@ -1,20 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { resend, FROM_ADDRESS, LODGE_EMAIL, ADMIN_EMAIL } from '@/lib/email'
+import { resend, FROM_ADDRESS, ADMIN_EMAIL } from '@/lib/email'
 import type { ChatMessage, LeadData } from '@/lib/chat'
 
 function escHtml(str: string): string {
   return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
+// Admin-only: the lodge inbox only ever hears about a chat via the
+// /api/contact submission (which carries its own transcript-so-far). This
+// route is a background copy for monitoring, not a lodge-facing notification.
 export async function POST(request: NextRequest) {
-  let body: { messages: ChatMessage[]; lead?: LeadData; page?: string; formSubmitted?: boolean }
+  let body: { messages: ChatMessage[]; lead?: LeadData; page?: string }
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ ok: false }, { status: 400 })
   }
 
-  const { messages, lead, page, formSubmitted } = body
+  const { messages, lead, page } = body
   if (!Array.isArray(messages) || messages.length < 2) {
     return NextResponse.json({ ok: true })
   }
@@ -56,11 +59,7 @@ export async function POST(request: NextRequest) {
     </div>`
 
   try {
-    await resend.emails.send(
-      formSubmitted
-        ? { from: FROM_ADDRESS, to: [LODGE_EMAIL], bcc: [ADMIN_EMAIL], subject, html }
-        : { from: FROM_ADDRESS, to: [ADMIN_EMAIL], subject, html }
-    )
+    await resend.emails.send({ from: FROM_ADDRESS, to: [ADMIN_EMAIL], subject, html })
   } catch {
     // fire-and-forget
   }
