@@ -1,22 +1,41 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { resend, FROM_ADDRESS, LODGE_EMAIL, ADMIN_EMAIL } from '@/lib/email'
+import type { ChatMessage } from '@/lib/chat'
 
 function esc(s: string) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
 export async function POST(request: NextRequest) {
-  let body: { name?: string; email?: string; phone?: string; subject?: string; message?: string }
+  let body: {
+    name?: string
+    email?: string
+    phone?: string
+    subject?: string
+    message?: string
+    transcript?: ChatMessage[]
+  }
   try {
     body = await request.json()
   } catch {
     return NextResponse.json({ ok: false }, { status: 400 })
   }
 
-  const { name, email, phone, subject, message } = body
+  const { name, email, phone, subject, message, transcript } = body
   if (!name || !message) {
     return NextResponse.json({ ok: false, error: 'Name and message are required' }, { status: 400 })
   }
+
+  const transcriptHtml =
+    Array.isArray(transcript) && transcript.length > 0
+      ? `
+        <p style="margin:20px 0 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#1a2744;">Chat Transcript</p>
+        <pre style="white-space:pre-wrap;word-break:break-word;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:13px;line-height:1.75;color:#374151;background:#F9FAFB;border:1px solid #E5E7EB;border-radius:6px;padding:16px;margin:0;">${esc(
+          transcript
+            .map((m) => `${m.role === 'user' ? 'Visitor' : 'Lodge Bot'}: ${m.content}`)
+            .join('\n\n')
+        )}</pre>`
+      : ''
 
   const emailSubject = `Lodge inquiry — ${subject ?? 'General'} — ${name}`
 
@@ -43,6 +62,7 @@ export async function POST(request: NextRequest) {
           </tr>
         </table>
         <div style="background:#f5f0e8;border:1px solid #d4c4a0;border-radius:6px;padding:16px;font-size:13px;line-height:1.7;color:#2c2c2c;white-space:pre-wrap;">${esc(message)}</div>
+        ${transcriptHtml}
       </div>
     </div>`
 

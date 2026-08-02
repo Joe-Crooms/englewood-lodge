@@ -110,7 +110,7 @@ export default function ChatWidget() {
     }
   }, [messages, pending])
 
-  const submitContactForm = useCallback(async (capturedLead: LeadData) => {
+  const submitContactForm = useCallback(async (capturedLead: LeadData, transcript: ChatMessage[]) => {
     if (formSubmittedRef.current) return
     formSubmittedRef.current = true
 
@@ -124,6 +124,7 @@ export default function ChatWidget() {
           phone: capturedLead.phone,
           subject: capturedLead.subject || 'Chat inquiry',
           message: capturedLead.message || 'Submitted via chat widget',
+          transcript,
         }),
       })
 
@@ -206,6 +207,7 @@ export default function ChatWidget() {
       const decoder = new TextDecoder()
       let accumulated = ''
       let capturedLead: LeadData | null = null
+      let finalDisplay = ''
 
       while (true) {
         const { done, value } = await reader.read()
@@ -213,6 +215,7 @@ export default function ChatWidget() {
         accumulated += decoder.decode(value, { stream: true })
 
         const { display, lead: parsedLead } = extractLead(accumulated)
+        finalDisplay = display
         setMessages((prev) => [...prev.slice(0, -1), { role: 'assistant', content: display }])
 
         if (parsedLead && !capturedLead) {
@@ -223,7 +226,9 @@ export default function ChatWidget() {
       }
 
       resetInactivityTimer()
-      if (capturedLead) submitContactForm(capturedLead)
+      if (capturedLead) {
+        submitContactForm(capturedLead, [...apiMessages, { role: 'assistant', content: finalDisplay }])
+      }
     } catch {
       setMessages((prev) => {
         const last = prev[prev.length - 1]
