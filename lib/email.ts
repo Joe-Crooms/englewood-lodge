@@ -6,6 +6,6 @@ export const FROM_ADDRESS =
   process.env.FROM_EMAIL_ADDRESS ?? 'Englewood Lodge No. 360 <noreply@trulyforged.com>'
 
 export const LODGE_EMAIL =
-  process.env.LODGE_EMAIL ?? 'englewood360@gmail.com'
+  process.env.LODGE_EMAIL ?? 'englewoodlodge360@gmail.com'
 
 export const ADMIN_EMAIL = 'joecrooms@yahoo.com'

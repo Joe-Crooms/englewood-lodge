@@ -282,7 +282,7 @@ export default function GolfTournamentPage() {
           </p>
           <p style={{ color: 'var(--text-light)', fontSize: '0.92rem', lineHeight: 1.8 }}>
             <strong>Contact:</strong> Secretary James Beamguard &nbsp;·&nbsp;
-            <a href="mailto:englewood360@gmail.com" style={{ color: 'var(--gold)' }}>englewood360@gmail.com</a>
+            <a href="mailto:englewoodlodge360@gmail.com" style={{ color: 'var(--gold)' }}>englewoodlodge360@gmail.com</a>
           </p>
         </div>
 

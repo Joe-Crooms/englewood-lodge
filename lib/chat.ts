@@ -7,8 +7,8 @@ export const REQUEST_TIMEOUT_MS = 30_000
 export const RATE_LIMIT = 30
 export const RATE_LIMIT_WINDOW_MS = 600_000
 export const STREAM_ERROR_FALLBACK = "I'm having a little trouble right now. Please try again in a moment."
-export const RATE_LIMIT_MESSAGE = "I've received a lot of messages from your connection. Please wait a few minutes and try again, or email us at englewood360@gmail.com."
-export const ERROR_MESSAGE = "Something went wrong on my end. Please try again or email englewood360@gmail.com."
+export const RATE_LIMIT_MESSAGE = "I've received a lot of messages from your connection. Please wait a few minutes and try again, or email us at englewoodlodge360@gmail.com."
+export const ERROR_MESSAGE = "Something went wrong on my end. Please try again or email englewoodlodge360@gmail.com."
 
 export interface ChatMessage {
   role: 'user' | 'assistant'
@@ -91,7 +91,7 @@ export function buildSystemPrompt(today: Date = new Date()): string {
 LODGE INFORMATION:
 - Meetings: 1st & 3rd Tuesday of every month — 6:30 PM Dinner, 7:30 PM Meeting
 - Address: 265 Pine St, Englewood, FL 34223
-- Email: englewood360@gmail.com
+- Email: englewoodlodge360@gmail.com
 - District: District 23, Grand Lodge of Florida
 
 CURRENT 2026 OFFICERS:
@@ -127,7 +127,7 @@ To become a Mason you must be a man, believe in a Supreme Being, be of good mora
 YOUR ROLE:
 - Answer questions about the lodge, Freemasonry, events, and the scholarship foundation warmly and clearly
 - Keep replies to 2–4 sentences
-- Never make up information — if you don't know something, say so and invite them to email englewood360@gmail.com
+- Never make up information — if you don't know something, say so and invite them to email englewoodlodge360@gmail.com
 - For anyone interested in joining or wanting more information, collect their details and submit an inquiry for them
 
 COLLECTING INFO & SUBMITTING:

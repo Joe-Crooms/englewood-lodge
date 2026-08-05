@@ -133,7 +133,7 @@ export default function ChatWidget() {
       } else {
         setMessages((prev) => [
           ...prev,
-          { role: 'assistant', content: 'I had trouble submitting your details. Please email us directly at englewood360@gmail.com.' },
+          { role: 'assistant', content: 'I had trouble submitting your details. Please email us directly at englewoodlodge360@gmail.com.' },
         ])
       }
     } catch {

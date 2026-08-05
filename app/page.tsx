@@ -547,8 +547,8 @@ function ContactSection() {
                 {
                   label: 'Email',
                   content: (
-                    <a href="mailto:englewood360@gmail.com" style={{ color: 'var(--gold)' }}>
-                      englewood360@gmail.com
+                    <a href="mailto:englewoodlodge360@gmail.com" style={{ color: 'var(--gold)' }}>
+                      englewoodlodge360@gmail.com
                     </a>
                   ),
                 },

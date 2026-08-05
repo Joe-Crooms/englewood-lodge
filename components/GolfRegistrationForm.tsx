@@ -40,7 +40,7 @@ export default function GolfRegistrationForm() {
     }
 
     window.location.href =
-      'mailto:englewood360@gmail.com' +
+      'mailto:englewoodlodge360@gmail.com' +
       '?subject=' + encodeURIComponent(subject) +
       '&body=' + encodeURIComponent(body)
   }

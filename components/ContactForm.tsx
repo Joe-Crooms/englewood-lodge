@@ -138,7 +138,7 @@ export default function ContactForm() {
 
       {status === 'error' && (
         <p style={{ color: '#f87171', fontSize: '0.85rem', marginBottom: 12 }}>
-          Something went wrong. Please try emailing englewood360@gmail.com directly.
+          Something went wrong. Please try emailing englewoodlodge360@gmail.com directly.
         </p>
       )}
 
